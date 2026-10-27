@@ -1,0 +1,2 @@
+CREATE DATABASE tickets;
+CREATE DATABASE assist;
