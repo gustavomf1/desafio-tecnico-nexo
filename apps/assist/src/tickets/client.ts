@@ -21,7 +21,6 @@ export type TicketsClientOptions = {
   token: string;
   maxAttempts?: number;
   baseDelayMs?: number;
-  // Chamado a cada falha temporária; o trace usa isso para mostrar "sistema indisponível, tentativa N".
   onRetry?: (info: RetryInfo) => void;
   fetchFn?: typeof fetch;
 };
@@ -39,7 +38,6 @@ export function createTicketsClient({ baseUrl, token, maxAttempts = 4, baseDelay
         signal: AbortSignal.timeout(5000),
       });
     } catch {
-      // Rede caiu ou estourou o timeout: tratamos igual a um 503.
       throw new TicketsApiError(0, 'network', 'Sistema de chamados não respondeu');
     }
     const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string };
@@ -47,8 +45,6 @@ export function createTicketsClient({ baseUrl, token, maxAttempts = 4, baseDelay
     return data as T;
   }
 
-  // O legado fica fora do ar por alguns segundos: tentamos de novo com espera crescente (250ms, 500ms, 1s).
-  // Erros de regra (404, 409, 400) não adiantam repetir e sobem direto.
   async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
     for (let attempt = 1; ; attempt++) {
       try {

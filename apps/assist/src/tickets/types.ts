@@ -1,7 +1,3 @@
-// Contrato do serviço de chamados visto do lado do assistente.
-// Os tipos são repetidos aqui de propósito: o serviço é "legado" e separado, então o assistente
-// depende só do formato HTTP, não do código interno dele.
-
 export const TICKET_TYPES = ['INC', 'REQ'] as const;
 export type TicketType = (typeof TICKET_TYPES)[number];
 
