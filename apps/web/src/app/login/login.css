@@ -3,7 +3,7 @@
   min-height: 100dvh;
 }
 
-.showcase {
+.login .showcase {
   width: 55%;
   max-width: 800px;
   display: flex;
@@ -15,7 +15,7 @@
   color: #fff;
 }
 
-.brand {
+.login .brand {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -23,25 +23,25 @@
   font-weight: 700;
 }
 
-.story {
+.login .story {
   display: flex;
   flex-direction: column;
   gap: 36px;
 }
 
-.headline {
+.login .headline {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.eyebrow {
+.login .eyebrow {
   color: #ffffff8c;
   font-size: 13.5px;
   font-weight: 500;
 }
 
-.headline h1 {
+.login .headline h1 {
   margin: 0;
   font-size: clamp(34px, 4vw, 54px);
   line-height: 1.05;
@@ -49,7 +49,7 @@
   letter-spacing: -0.02em;
 }
 
-.headline p {
+.login .headline p {
   margin: 0;
   max-width: 520px;
   color: #ffffffa6;
@@ -57,7 +57,7 @@
   line-height: 1.5;
 }
 
-.preview {
+.login .preview {
   align-self: flex-end;
   width: min(500px, 100%);
   display: flex;
@@ -70,7 +70,7 @@
   font-size: 13.5px;
 }
 
-.preview-user {
+.login .preview-user {
   align-self: flex-end;
   padding: 9px 14px;
   border-radius: 12px 12px 4px 12px;
@@ -78,32 +78,32 @@
   color: var(--ink);
 }
 
-.preview-agent {
+.login .preview-agent {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.preview-agent .who {
+.login .preview-agent .who {
   display: flex;
   gap: 6px;
   font-size: 12.5px;
   color: #ffffff73;
 }
 
-.preview-agent .who strong {
+.login .preview-agent .who strong {
   color: #ffffffcc;
   font-weight: 600;
 }
 
-.preview-agent .bubble {
+.login .preview-agent .bubble {
   max-width: 380px;
   padding: 10px 14px;
   border-radius: 4px 12px 12px 12px;
   background: #ffffff14;
 }
 
-.preview-agent .chip {
+.login .preview-agent .chip {
   align-self: flex-start;
   display: flex;
   align-items: center;
@@ -115,17 +115,17 @@
   font-size: 12.5px;
 }
 
-.preview-agent .chip span:last-child {
+.login .preview-agent .chip span:last-child {
   color: var(--ink-3);
 }
 
-.stats {
+.login .stats {
   display: flex;
   padding-top: 24px;
   border-top: 1px solid #ffffff1a;
 }
 
-.stats > div {
+.login .stats > div {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -134,12 +134,12 @@
   border-left: 1px solid #ffffff1a;
 }
 
-.stats > div:first-child {
+.login .stats > div:first-child {
   padding-left: 0;
   border-left: none;
 }
 
-.stats strong {
+.login .stats strong {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -147,12 +147,12 @@
   font-weight: 500;
 }
 
-.stats span {
+.login .stats span {
   color: #ffffff8c;
   font-size: 13.5px;
 }
 
-.sign-in {
+.login .sign-in {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -161,18 +161,18 @@
   padding: 40px 56px;
 }
 
-.help {
+.login .help {
   display: flex;
   justify-content: flex-end;
   gap: 6px;
   font-size: 13.5px;
 }
 
-.help a {
+.login .help a {
   font-weight: 600;
 }
 
-.form {
+.login .form {
   align-self: center;
   width: min(380px, 100%);
   display: flex;
@@ -180,25 +180,25 @@
   gap: 28px;
 }
 
-.form h2 {
+.login .form h2 {
   margin: 0 0 8px;
   font-size: 40px;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
-.form p {
+.login .form p {
   margin: 0;
   font-size: 15.5px;
 }
 
-.fields {
+.login .fields {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.field {
+.login .field {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -206,7 +206,7 @@
   font-weight: 500;
 }
 
-.input {
+.login .input {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -217,12 +217,12 @@
   color: var(--ink-3);
 }
 
-.input:focus-within {
+.login .input:focus-within {
   border-color: var(--cta);
   color: var(--primary-text);
 }
 
-.input input {
+.login .input input {
   flex: 1;
   min-width: 0;
   border: none;
@@ -233,7 +233,7 @@
   font-weight: 400;
 }
 
-.toggle {
+.login .toggle {
   width: 30px;
   height: 30px;
   display: grid;
@@ -242,7 +242,7 @@
   color: var(--ink-3);
 }
 
-.remember {
+.login .remember {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -250,36 +250,36 @@
   color: var(--ink-2);
 }
 
-.remember input {
+.login .remember input {
   width: 18px;
   height: 18px;
   accent-color: var(--cta);
 }
 
-.submit {
+.login .submit {
   height: 44px;
   font-size: 15.5px;
 }
 
-.note {
+.login .note {
   padding-top: 16px;
   border-top: 1px solid var(--rule);
   font-size: 13px !important;
   line-height: 1.5;
 }
 
-.footer {
+.login .footer {
   display: flex;
   justify-content: space-between;
   font-size: 12.5px;
 }
 
 @media (max-width: 900px) {
-  .showcase {
+  .login .showcase {
     display: none;
   }
 
-  .sign-in {
+  .login .sign-in {
     padding: 24px 16px;
   }
 }

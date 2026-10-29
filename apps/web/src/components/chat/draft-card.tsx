@@ -52,7 +52,7 @@ export function DraftCard({ draft, duplicateOf, pending, disabled, onConfirm, on
       </div>
 
       {draft.kind === 'create' ? (
-        <div className="fields">
+        <div className="ticket-fields">
           <div>
             <span className="key">Tipo e categoria</span>
             <span className="value">

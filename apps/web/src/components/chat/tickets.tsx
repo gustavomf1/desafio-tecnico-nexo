@@ -24,7 +24,7 @@ export function TicketCard({ ticket, event }: { ticket: Ticket; event?: keyof ty
         <div className="title">{ticket.title}</div>
         <div className="description">{ticket.description}</div>
       </div>
-      <div className="fields">
+      <div className="ticket-fields">
         <div>
           <span className="key">Categoria</span>
           <span className="value">
