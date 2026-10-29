@@ -155,6 +155,16 @@ describe('console do analista', () => {
     expect(res.statusCode).toBe(403);
   });
 
+  it('lista as conversas com a última mensagem de cada uma', async () => {
+    const employee = await login(carla);
+    const id = await newConversation(employee);
+    runTurn.mockResolvedValue(reply({ reply: 'Achei o artigo da VPN.' }));
+    await say(id, employee, 'vpn caiu');
+    const list = (await app.inject({ method: 'GET', url: '/console/conversations', headers: await login(rafael) })).json();
+    const item = list.find((c: { id: string }) => c.id === id);
+    expect(item.lastMessage).toMatchObject({ role: 'agent', content: 'Achei o artigo da VPN.' });
+  });
+
   it('assume, responde e devolve a conversa ao agent', async () => {
     const employee = await login(ana);
     const analyst = await login(rafael);

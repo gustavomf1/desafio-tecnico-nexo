@@ -146,7 +146,12 @@ export function buildApp({ store, tickets, runTurn, sessionSecret, webOrigin, lo
   app.get('/console/conversations', async (req) => {
     analystOf(req);
     const { status } = z.object({ status: z.enum(CONVERSATION_STATUSES).optional() }).parse(req.query);
-    return (await store.listForConsole(status ? [status] : undefined)).map(toConversationDto);
+    const rows = await store.listForConsole(status ? [status] : undefined);
+    const last = await store.lastMessages(rows.map((r) => r.id));
+    return rows.map((r) => {
+      const m = last.get(r.id);
+      return { ...toConversationDto(r), lastMessage: m ? { role: m.role, authorName: m.authorName, content: m.content, createdAt: m.createdAt.toISOString() } : null };
+    });
   });
 
   app.get('/console/conversations/:id', async (req) => {

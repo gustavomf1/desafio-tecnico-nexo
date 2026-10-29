@@ -14,7 +14,7 @@ export type Draft =
 export const HANDOFF_REASONS = ['pedido', 'critico', 'vencido', 'incerteza'] as const;
 export type HandoffReason = (typeof HANDOFF_REASONS)[number];
 
-export type Handoff = { reason: HandoffReason; summary: string; ticketCode: string | null; at: string };
+export type Handoff = { reason: HandoffReason; summary: string; ticketCode: string | null; at: string; confidence?: number };
 
 export const initialState = (): ConversationState => ({ turn: 0, draft: null, handoff: null });
 

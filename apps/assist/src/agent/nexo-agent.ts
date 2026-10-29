@@ -89,6 +89,7 @@ export async function runTurn(input: TurnInput): Promise<TurnResult> {
       summary: `O agent não teve segurança para decidir (${turn.decision.confidence.toFixed(2)}). Pedido: "${input.message}". Entendimento: ${turn.decision.intent}.`,
       ticketCode: null,
       at: new Date().toISOString(),
+      confidence: turn.decision.confidence,
     };
     turn.blocks.push({ type: 'handoff', handoff: state.handoff });
     turn.guardrails.push(`Confiança ${turn.decision.confidence.toFixed(2)} abaixo de ${LOW_CONFIDENCE}: conversa transferida para um analista.`);

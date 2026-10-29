@@ -67,6 +67,16 @@ export function createConversationStore(db: Db) {
         .orderBy(desc(conversations.updatedAt))
         .limit(100),
 
+    async lastMessages(conversationIds: string[]): Promise<Map<string, MessageRow>> {
+      if (conversationIds.length === 0) return new Map();
+      const rows = await db
+        .selectDistinctOn([messages.conversationId])
+        .from(messages)
+        .where(inArray(messages.conversationId, conversationIds))
+        .orderBy(messages.conversationId, desc(messages.createdAt));
+      return new Map(rows.map((m) => [m.conversationId, m]));
+    },
+
     messagesOf: (conversationId: string) => db.select().from(messages).where(eq(messages.conversationId, conversationId)).orderBy(asc(messages.createdAt)),
 
     async addMessage(conversationId: string, msg: { role: MessageRole; authorName: string; content: string; blocks?: UiBlock[]; trace?: DecisionTrace | null }): Promise<MessageRow> {
