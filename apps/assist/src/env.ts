@@ -5,6 +5,8 @@ const schema = z.object({
   ASSIST_MODEL: z.string().default('openai/gpt-4.1-mini'),
   ASSIST_DATABASE_URL: z.string().url(),
   ASSIST_PORT: z.coerce.number().int().default(4000),
+  PORT: z.coerce.number().int().optional(),
+  ASSIST_DAILY_AGENT_LIMIT: z.coerce.number().int().min(0).default(0),
   ASSIST_SESSION_SECRET: z.string().min(16),
   ASSIST_WEB_ORIGIN: z.string().default('http://localhost:3100'),
   TICKETS_URL: z.string().url(),

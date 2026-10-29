@@ -149,6 +149,32 @@ describe('mensagens', () => {
   });
 });
 
+describe('limites de uso', () => {
+  it('recusa mensagens em excesso e para de chamar o modelo no limite diário', async () => {
+    const limited = buildApp({
+      store: createConversationStore(db),
+      tickets,
+      runTurn,
+      sessionSecret: 'segredo-de-teste-123456',
+      webOrigin: 'http://localhost:3100',
+      limits: { requestsPerMinute: 100, messagesPerMinute: 2, agentRepliesPerDay: 1 },
+    });
+    const headers = await login(ana);
+    const id = (await limited.inject({ method: 'POST', url: '/conversations', headers })).json().id as string;
+    runTurn.mockResolvedValue(reply());
+    const post = (content: string) => limited.inject({ method: 'POST', url: `/conversations/${id}/messages`, headers, payload: { content } });
+
+    await post('primeira');
+    const second = await post('segunda');
+    const third = await post('terceira');
+
+    expect(runTurn.mock.calls.length).toBeLessThanOrEqual(1);
+    expect(second.body).toContain('limite diário');
+    expect(third.statusCode).toBe(429);
+    await limited.close();
+  });
+});
+
 describe('console do analista', () => {
   it('é restrito a analistas', async () => {
     const res = await app.inject({ method: 'GET', url: '/console/conversations', headers: await login(ana) });

@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, inArray } from 'drizzle-orm';
+import { and, asc, count, desc, eq, gte, inArray } from 'drizzle-orm';
 import type { ChatMessage } from './agent/nexo-agent.js';
 import { HISTORY_WINDOW } from './agent/nexo-agent.js';
 import { initialState, type ConversationState, type DecisionTrace, type UiBlock } from './agent/state.js';
@@ -75,6 +75,14 @@ export function createConversationStore(db: Db) {
         .where(inArray(messages.conversationId, conversationIds))
         .orderBy(messages.conversationId, desc(messages.createdAt));
       return new Map(rows.map((m) => [m.conversationId, m]));
+    },
+
+    async countAgentRepliesSince(since: Date): Promise<number> {
+      const [row] = await db
+        .select({ n: count() })
+        .from(messages)
+        .where(and(eq(messages.role, 'agent'), gte(messages.createdAt, since)));
+      return row?.n ?? 0;
     },
 
     messagesOf: (conversationId: string) => db.select().from(messages).where(eq(messages.conversationId, conversationId)).orderBy(asc(messages.createdAt)),

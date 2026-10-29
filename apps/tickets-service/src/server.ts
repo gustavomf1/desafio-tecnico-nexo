@@ -18,4 +18,4 @@ const shutdown = async () => {
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
-await app.listen({ port: env.TICKETS_PORT, host: '0.0.0.0' });
+await app.listen({ port: env.PORT ?? env.TICKETS_PORT, host: '::' });

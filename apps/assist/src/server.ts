@@ -15,6 +15,7 @@ const app = buildApp({
   sessionSecret: env.ASSIST_SESSION_SECRET,
   webOrigin: env.ASSIST_WEB_ORIGIN,
   logger: true,
+  limits: { requestsPerMinute: 120, messagesPerMinute: 8, agentRepliesPerDay: env.ASSIST_DAILY_AGENT_LIMIT },
   runTurn: (input) =>
     runTurn({ ...input, agent, model: env.ASSIST_MODEL, ticketsUrl: env.TICKETS_URL, ticketsToken: env.TICKETS_SERVICE_TOKEN }),
 });
@@ -27,4 +28,4 @@ const shutdown = async () => {
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
-await app.listen({ port: env.ASSIST_PORT, host: '0.0.0.0' });
+await app.listen({ port: env.PORT ?? env.ASSIST_PORT, host: '::' });
