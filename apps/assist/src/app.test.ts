@@ -34,7 +34,7 @@ const tickets = {
 
 const runTurn = vi.fn<TurnRunner>();
 const { db, pool } = createDb(process.env.ASSIST_DATABASE_URL!);
-const app = buildApp({ store: createConversationStore(db), tickets, runTurn, sessionSecret: 'segredo-de-teste-123456', webOrigin: 'http://localhost:3000' });
+const app = buildApp({ store: createConversationStore(db), tickets, runTurn, sessionSecret: 'segredo-de-teste-123456', webOrigin: 'http://localhost:3100' });
 
 const reply = (over: Partial<TurnResult> = {}): TurnResult => ({
   reply: 'Encontrei seu chamado.',

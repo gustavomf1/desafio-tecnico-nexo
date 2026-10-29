@@ -66,10 +66,14 @@ export async function runTurn(input: TurnInput): Promise<TurnResult> {
   requestContext.set(TURN_KEY, turn);
 
   const messages = [...input.history.slice(-HISTORY_WINDOW), { role: 'user' as const, content: input.message }];
-  const stream = await input.agent.stream(messages, { requestContext, maxSteps: 6, modelSettings: { temperature: 0.2 } });
+  const stream = await input.agent.stream(messages, { requestContext, maxSteps: 6, modelSettings: { temperature: 0.2, timeout: { totalMs: 45_000, stepMs: 20_000 } } });
 
   let reply = '';
   for await (const chunk of stream.fullStream) {
+    if (chunk.type === 'text-start' && reply.trim() && !/\s$/.test(reply)) {
+      reply += '\n\n';
+      input.onText?.('\n\n');
+    }
     if (chunk.type === 'text-delta') {
       reply += chunk.payload.text;
       input.onText?.(chunk.payload.text);

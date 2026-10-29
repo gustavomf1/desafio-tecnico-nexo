@@ -6,7 +6,7 @@ const schema = z.object({
   ASSIST_DATABASE_URL: z.string().url(),
   ASSIST_PORT: z.coerce.number().int().default(4000),
   ASSIST_SESSION_SECRET: z.string().min(16),
-  ASSIST_WEB_ORIGIN: z.string().default('http://localhost:3000'),
+  ASSIST_WEB_ORIGIN: z.string().default('http://localhost:3100'),
   TICKETS_URL: z.string().url(),
   TICKETS_SERVICE_TOKEN: z.string().min(8),
 });

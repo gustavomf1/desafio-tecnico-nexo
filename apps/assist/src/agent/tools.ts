@@ -214,7 +214,7 @@ export const confirmarRascunho = createTool({
 
 export const oferecerOpcoes = createTool({
   id: 'oferecer_opcoes',
-  description: 'Mostra botões de resposta rápida para o funcionário. Use ao fazer uma pergunta com poucas respostas possíveis (escolher um chamado, confirmar ou corrigir rascunho, prioridade).',
+  description: 'Mostra botões de resposta rápida para o funcionário. Use ao fazer uma pergunta com poucas respostas possíveis (quem é afetado, falar com analista, prioridade). Não use para escolher chamado: a lista de chamados já é clicável.',
   inputSchema: z.object({ question: z.string(), options: z.array(z.string().max(60)).min(2).max(5) }),
   execute: async ({ question, options }, ctx) => {
     const turn = turnFrom(ctx);
