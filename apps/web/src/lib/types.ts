@@ -35,7 +35,7 @@ export type Draft =
   | { id: string; kind: 'create'; createdTurn: number; ticket: NewTicket; priorityReason: string; slaRule: string }
   | { id: string; kind: 'update' | 'reopen'; createdTurn: number; code: string; title: string; text: string; duplicate: boolean };
 
-export type Handoff = { reason: 'pedido' | 'critico' | 'vencido' | 'incerteza'; summary: string; ticketCode: string | null; at: string };
+export type Handoff = { reason: 'pedido' | 'critico' | 'vencido' | 'incerteza'; summary: string; ticketCode: string | null; at: string; confidence?: number };
 
 export type UiBlock =
   | { type: 'tickets'; tickets: Ticket[] }
@@ -81,3 +81,5 @@ export type Conversation = {
 
 export type ConversationDetail = { conversation: Conversation; messages: Message[] };
 export type ConsoleDetail = ConversationDetail & { tickets: Ticket[] | null };
+
+export type ConsoleListItem = Conversation & { lastMessage: Pick<Message, 'role' | 'authorName' | 'content' | 'createdAt'> | null };
