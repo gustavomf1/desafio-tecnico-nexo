@@ -3,8 +3,6 @@ import { buildApp } from './app.js';
 import { db, pool } from './db/client.js';
 import { createServiceDesk } from './service-desk.js';
 
-// Integração contra o Postgres com os dados do seed. Só leituras e operações recusadas,
-// para não alterar os dados de exemplo.
 const token = 'token-de-teste';
 const app = buildApp({ serviceDesk: createServiceDesk(db), serviceToken: token, faultRate: 0 });
 const headers = { 'x-service-token': token };
@@ -25,7 +23,7 @@ describe('privacidade', () => {
     const res = await app.inject({ method: 'GET', url: `/employees/${anaId}/tickets?scope=all`, headers });
     const codes = res.json().map((t: { code: string }) => t.code);
     expect(codes).toContain('INC-20311');
-    expect(codes).not.toContain('INC-20405'); // da Carla
+    expect(codes).not.toContain('INC-20405');
   });
 
   it('chamado de outra pessoa responde 404, sem revelar que existe', async () => {

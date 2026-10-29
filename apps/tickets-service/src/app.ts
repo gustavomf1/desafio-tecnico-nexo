@@ -33,14 +33,11 @@ const updateBody = z.object({
 export function buildApp({ serviceDesk, serviceToken, faultRate, logger = false }: AppOptions): FastifyInstance {
   const app = Fastify({ logger });
 
-  // Só o backend do assistente conversa com o legado. O token nunca chega ao navegador.
   app.addHook('onRequest', async (req, reply) => {
     if (req.url === '/health') return;
     if (req.headers['x-service-token'] !== serviceToken) {
       return reply.code(401).send({ error: 'unauthorized', message: 'Token de serviço inválido' });
     }
-    // O PRD diz que o sistema de chamados "de vez em quando fica indisponível por alguns segundos".
-    // Simulamos isso aqui para o cliente do agent ter que lidar com a falha de verdade.
     if (Math.random() < faultRate) {
       return reply.code(503).send({ error: 'unavailable', message: 'Sistema de chamados temporariamente indisponível' });
     }
