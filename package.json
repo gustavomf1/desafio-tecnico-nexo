@@ -9,12 +9,15 @@
     "dev": "concurrently -k -n tickets,assist,web -c yellow,blue,green \"npm run dev -w @nexo/tickets-service\" \"npm run dev -w @nexo/assist\" \"npm run dev -w @nexo/web\"",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "eval": "npm run eval -w @nexo/assist"
+    "eval": "npm run eval -w @nexo/assist",
+    "build": "npm run build --if-present -w @nexo/$NEXO_APP",
+    "start": "npm run start:prod -w @nexo/$NEXO_APP",
+    "start:api": "concurrently -k -n tickets,assist \"env -u PORT TICKETS_PORT=4001 npm run start:prod -w @nexo/tickets-service\" \"npm run start:prod -w @nexo/assist\""
   },
   "engines": {
     "node": ">=22"
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^9.2.5"
   }
 }

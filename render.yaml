@@ -1,0 +1,60 @@
+databases:
+  - name: nexo-db
+    plan: free
+    region: oregon
+    databaseName: nexo
+    user: nexo
+
+services:
+  - type: web
+    name: nexo-assist-gustavomf1-api
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci
+    startCommand: npm run start:api
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: TICKETS_DATABASE_URL
+        fromDatabase:
+          name: nexo-db
+          property: connectionString
+      - key: ASSIST_DATABASE_URL
+        fromDatabase:
+          name: nexo-db
+          property: connectionString
+      - key: ASSIST_MIGRATIONS_TABLE
+        value: assist_migrations
+      - key: TICKETS_URL
+        value: http://127.0.0.1:4001
+      - key: TICKETS_SERVICE_TOKEN
+        generateValue: true
+      - key: TICKETS_FAULT_RATE
+        value: "0.1"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ASSIST_MODEL
+        value: openai/gpt-4.1-mini
+      - key: ASSIST_SESSION_SECRET
+        generateValue: true
+      - key: ASSIST_WEB_ORIGIN
+        value: https://nexo-assist-gustavomf1.onrender.com
+      - key: ASSIST_DAILY_AGENT_LIMIT
+        value: "300"
+
+  - type: web
+    name: nexo-assist-gustavomf1
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXO_APP
+        value: web
+      - key: NEXT_PUBLIC_ASSIST_URL
+        value: https://nexo-assist-gustavomf1-api.onrender.com

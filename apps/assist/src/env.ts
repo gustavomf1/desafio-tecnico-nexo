@@ -4,6 +4,7 @@ const schema = z.object({
   OPENAI_API_KEY: z.string().min(10),
   ASSIST_MODEL: z.string().default('openai/gpt-4.1-mini'),
   ASSIST_DATABASE_URL: z.string().url(),
+  ASSIST_MIGRATIONS_TABLE: z.string().default('__drizzle_migrations'),
   ASSIST_PORT: z.coerce.number().int().default(4000),
   PORT: z.coerce.number().int().optional(),
   ASSIST_DAILY_AGENT_LIMIT: z.coerce.number().int().min(0).default(0),
