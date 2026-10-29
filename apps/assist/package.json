@@ -1,0 +1,21 @@
+{
+  "name": "@nexo/assist",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "chat": "tsx --env-file=../../.env src/cli.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "@mastra/core": "^1.80.0",
+    "zod": "^4.6.7"
+  }
+}
