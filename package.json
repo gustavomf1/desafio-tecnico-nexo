@@ -1,12 +1,20 @@
 {
   "name": "nexo-assist",
   "private": true,
-  "workspaces": ["apps/*"],
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
+    "setup": "docker compose up -d --wait && npm run db:migrate -w @nexo/tickets-service && npm run db:seed -w @nexo/tickets-service && npm run db:migrate -w @nexo/assist",
+    "dev": "concurrently -k -n tickets,assist,web -c yellow,blue,green \"npm run dev -w @nexo/tickets-service\" \"npm run dev -w @nexo/assist\" \"npm run dev -w @nexo/web\"",
     "test": "npm run test --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "eval": "npm run eval -w @nexo/assist"
   },
-  "engines":{
+  "engines": {
     "node": ">=22"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.5"
   }
 }
