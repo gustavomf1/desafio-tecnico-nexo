@@ -3,3 +3,5 @@ node_modules
 .mastra/
 .next/
 .vitest/
+*.tsbuildinfo
+next-env.d.ts
