@@ -193,4 +193,18 @@ Uma mensagem usa de 5 a 10 mil tokens de entrada e algumas centenas de saída, *
 
 ## Deploy
 
-Ainda não publicado.
+**https://nexo-assist-gustavomf1.onrender.com** (mesmos logins da tabela acima, qualquer senha)
+
+Publicado no Render pelo Blueprint [`render.yaml`](render.yaml), no plano grátis:
+
+- **`nexo-assist-gustavomf1`**: a interface Next.js.
+- **`nexo-assist-gustavomf1-api`**: o assist e o sistema de chamados, como dois processos no mesmo serviço (`npm run start:api`). O legado escuta só em `127.0.0.1:4001` e não fica exposto na internet; no plano grátis o Render não tem rede privada entre serviços, então juntar os dois processos foi o jeito de manter o legado fechado.
+- **`nexo-db`**: um Postgres compartilhado pelos dois apps (o plano grátis permite um só). As tabelas não se misturam e cada app tem sua própria tabela de migrations. Na primeira subida, o legado carrega os dados de exemplo se o banco estiver vazio.
+
+Proteção de chaves e de custo:
+
+- A chave da OpenAI foi informada direto no painel do Render (`sync: false`) e nunca passou pelo repositório; o token do legado e o segredo da sessão são gerados pelo próprio Render.
+- Rate limit por IP: 120 requisições e 8 mensagens por minuto.
+- Teto de 300 respostas do agent por dia (`ASSIST_DAILY_AGENT_LIMIT`, cerca de US$ 1,50 no pior caso). Passado o teto, o chat avisa e o modelo não é chamado.
+
+No plano grátis os serviços dormem depois de 15 minutos sem uso: **o primeiro acesso pode levar cerca de 1 minuto**.
